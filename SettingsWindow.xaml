@@ -1,0 +1,447 @@
+<Window x:Class="CodexStart.SettingsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:shell="clr-namespace:System.Windows.Shell;assembly=PresentationFramework"
+        Title="ChatGPT" Width="1100" Height="744" MinWidth="820" MinHeight="590"
+        Icon="pack://application:,,,/CodexStart;component/Assets/settings.ico"
+        Background="#151619" Foreground="#F1F2F4" FontSize="13"
+        FontFamily="Microsoft YaHei UI, Segoe UI Variable Text"
+        UseLayoutRounding="True" SnapsToDevicePixels="True" WindowStartupLocation="CenterScreen">
+  <shell:WindowChrome.WindowChrome>
+    <shell:WindowChrome CaptionHeight="42" ResizeBorderThickness="6" GlassFrameThickness="0"
+                        CornerRadius="10" UseAeroCaptionButtons="False"/>
+  </shell:WindowChrome.WindowChrome>
+  <Window.Resources>
+    <SolidColorBrush x:Key="Ink">#F1F2F4</SolidColorBrush>
+    <SolidColorBrush x:Key="Muted">#A0A5AE</SolidColorBrush>
+    <SolidColorBrush x:Key="Accent">#CBEA91</SolidColorBrush>
+    <SolidColorBrush x:Key="Panel">#1D1F22</SolidColorBrush>
+    <SolidColorBrush x:Key="Rule">#303237</SolidColorBrush>
+    <Style TargetType="TextBlock">
+      <Setter Property="TextWrapping" Value="Wrap"/>
+    </Style>
+    <Style TargetType="RadioButton">
+      <Setter Property="Foreground" Value="{StaticResource Ink}"/>
+    </Style>
+    <Style x:Key="StudioButton" TargetType="Button">
+      <Setter Property="Background" Value="#282A2E"/>
+      <Setter Property="Foreground" Value="{StaticResource Ink}"/>
+      <Setter Property="BorderBrush" Value="Transparent"/>
+      <Setter Property="Padding" Value="12,7"/>
+      <Setter Property="MinHeight" Value="34"/>
+      <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+      <Setter Property="Template">
+        <Setter.Value>
+          <ControlTemplate TargetType="Button">
+            <Border x:Name="Body" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}"
+                    CornerRadius="6" BorderThickness="1" Padding="{TemplateBinding Padding}">
+              <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="Center"
+                                RecognizesAccessKey="True"/>
+            </Border>
+            <ControlTemplate.Triggers>
+              <Trigger Property="IsMouseOver" Value="True">
+                <Setter TargetName="Body" Property="BorderBrush" Value="#50565C"/>
+              </Trigger>
+              <Trigger Property="IsKeyboardFocused" Value="True">
+                <Setter TargetName="Body" Property="BorderBrush" Value="{StaticResource Accent}"/>
+              </Trigger>
+              <Trigger Property="IsPressed" Value="True"><Setter TargetName="Body" Property="Opacity" Value=".75"/></Trigger>
+              <Trigger Property="IsEnabled" Value="False"><Setter TargetName="Body" Property="Opacity" Value=".40"/></Trigger>
+            </ControlTemplate.Triggers>
+          </ControlTemplate>
+        </Setter.Value>
+      </Setter>
+    </Style>
+    <Style TargetType="Button" BasedOn="{StaticResource StudioButton}"/>
+    <Style x:Key="Action" TargetType="Button" BasedOn="{StaticResource StudioButton}">
+      <Setter Property="Foreground" Value="#162009"/>
+      <Setter Property="Background" Value="{StaticResource Accent}"/>
+      <Setter Property="FontWeight" Value="SemiBold"/>
+      <Setter Property="Padding" Value="16,8"/>
+    </Style>
+    <Style x:Key="Ghost" TargetType="Button" BasedOn="{StaticResource StudioButton}">
+      <Setter Property="Background" Value="Transparent"/>
+      <Setter Property="Foreground" Value="{StaticResource Muted}"/>
+    </Style>
+    <Style x:Key="Selected" TargetType="Button" BasedOn="{StaticResource StudioButton}">
+      <Setter Property="Background" Value="#2A3623"/>
+      <Setter Property="Foreground" Value="{StaticResource Accent}"/>
+      <Setter Property="FontWeight" Value="SemiBold"/>
+    </Style>
+    <Style x:Key="Caption" TargetType="Button" BasedOn="{StaticResource Ghost}">
+      <Setter Property="FontFamily" Value="Segoe MDL2 Assets"/>
+      <Setter Property="FontSize" Value="10"/>
+      <Setter Property="MinHeight" Value="0"/>
+      <Setter Property="Width" Value="39"/>
+      <Setter Property="Padding" Value="4"/>
+      <Setter Property="shell:WindowChrome.IsHitTestVisibleInChrome" Value="True"/>
+    </Style>
+    <Style x:Key="Card" TargetType="Border">
+      <Setter Property="Background" Value="{StaticResource Panel}"/>
+      <Setter Property="CornerRadius" Value="9"/>
+      <Setter Property="Padding" Value="18"/>
+    </Style>
+    <Style x:Key="Chip" TargetType="Button" BasedOn="{StaticResource Ghost}">
+      <Setter Property="Padding" Value="8,4"/>
+      <Setter Property="MinHeight" Value="29"/>
+      <Setter Property="Margin" Value="0,0,4,4"/>
+      <Setter Property="FontSize" Value="12"/>
+    </Style>
+    <Style x:Key="ChipActive" TargetType="Button" BasedOn="{StaticResource Selected}">
+      <Setter Property="Padding" Value="8,4"/>
+      <Setter Property="MinHeight" Value="29"/>
+      <Setter Property="Margin" Value="0,0,4,4"/>
+      <Setter Property="FontSize" Value="12"/>
+    </Style>
+    <Style x:Key="Quiet" TargetType="TextBlock">
+      <Setter Property="Foreground" Value="{StaticResource Muted}"/>
+      <Setter Property="FontSize" Value="12"/>
+      <Setter Property="LineHeight" Value="20"/>
+      <Setter Property="TextWrapping" Value="Wrap"/>
+    </Style>
+    <Style x:Key="Heading" TargetType="TextBlock">
+      <Setter Property="FontSize" Value="30"/>
+      <Setter Property="FontWeight" Value="SemiBold"/>
+      <Setter Property="Margin" Value="0,0,0,6"/>
+    </Style>
+    <Style x:Key="SectionTitle" TargetType="TextBlock">
+      <Setter Property="FontSize" Value="15"/>
+      <Setter Property="FontWeight" Value="SemiBold"/>
+    </Style>
+    <Style TargetType="CheckBox">
+      <Setter Property="Foreground" Value="{StaticResource Ink}"/>
+      <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+      <Setter Property="Template">
+        <Setter.Value>
+          <ControlTemplate TargetType="CheckBox">
+            <StackPanel Orientation="Horizontal" Background="Transparent">
+              <Border x:Name="Rail" Width="32" Height="18" Background="#36393E" CornerRadius="9" VerticalAlignment="Center">
+                <Ellipse x:Name="Knob" Width="12" Height="12" Fill="#B6BBC2" Margin="3"
+                         HorizontalAlignment="Left" VerticalAlignment="Center"/>
+              </Border>
+              <ContentPresenter Margin="8,0,0,0" VerticalAlignment="Center" RecognizesAccessKey="True"/>
+            </StackPanel>
+            <ControlTemplate.Triggers>
+              <Trigger Property="IsChecked" Value="True">
+                <Setter TargetName="Rail" Property="Background" Value="{StaticResource Accent}"/>
+                <Setter TargetName="Knob" Property="Fill" Value="#26341C"/>
+                <Setter TargetName="Knob" Property="HorizontalAlignment" Value="Right"/>
+              </Trigger>
+              <Trigger Property="IsKeyboardFocused" Value="True"><Setter TargetName="Rail" Property="Opacity" Value=".65"/></Trigger>
+              <Trigger Property="IsEnabled" Value="False"><Setter Property="Opacity" Value=".45"/></Trigger>
+            </ControlTemplate.Triggers>
+          </ControlTemplate>
+        </Setter.Value>
+      </Setter>
+    </Style>
+    <ControlTemplate x:Key="SliderFill" TargetType="RepeatButton">
+      <Border Height="3" Background="{TemplateBinding Background}" CornerRadius="1.5" VerticalAlignment="Center"/>
+    </ControlTemplate>
+    <Style TargetType="Slider">
+      <Setter Property="Height" Value="24"/>
+      <Setter Property="Focusable" Value="True"/>
+      <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+      <Setter Property="IsMoveToPointEnabled" Value="True"/>
+      <Setter Property="Template">
+        <Setter.Value>
+          <ControlTemplate TargetType="Slider">
+            <Grid Background="Transparent">
+              <Track x:Name="PART_Track">
+                <Track.DecreaseRepeatButton>
+                  <RepeatButton Command="Slider.DecreaseLarge" Background="{StaticResource Accent}"
+                                Template="{StaticResource SliderFill}" Focusable="False"/>
+                </Track.DecreaseRepeatButton>
+                <Track.IncreaseRepeatButton>
+                  <RepeatButton Command="Slider.IncreaseLarge" Background="#373A40"
+                                Template="{StaticResource SliderFill}" Focusable="False"/>
+                </Track.IncreaseRepeatButton>
+                <Track.Thumb>
+                  <Thumb Width="14" Height="14" VerticalAlignment="Center">
+                    <Thumb.Template>
+                      <ControlTemplate TargetType="Thumb">
+                        <Ellipse Fill="{StaticResource Accent}"/>
+                      </ControlTemplate>
+                    </Thumb.Template>
+                  </Thumb>
+                </Track.Thumb>
+              </Track>
+            </Grid>
+            <ControlTemplate.Triggers>
+              <Trigger Property="IsKeyboardFocused" Value="True"><Setter Property="Opacity" Value=".72"/></Trigger>
+              <Trigger Property="IsEnabled" Value="False"><Setter Property="Opacity" Value=".40"/></Trigger>
+            </ControlTemplate.Triggers>
+          </ControlTemplate>
+        </Setter.Value>
+      </Setter>
+    </Style>
+  </Window.Resources>
+  <Grid Background="#151619">
+    <Grid.ColumnDefinitions><ColumnDefinition Width="187"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
+    <Grid.RowDefinitions><RowDefinition Height="43"/><RowDefinition Height="*"/><RowDefinition Height="63"/></Grid.RowDefinitions>
+    <Border Grid.ColumnSpan="2" Background="#111214" BorderBrush="{StaticResource Rule}" BorderThickness="0,0,0,1">
+      <DockPanel LastChildFill="True" Margin="17,2,5,2">
+        <StackPanel DockPanel.Dock="Right" Orientation="Horizontal">
+          <Button Style="{StaticResource Caption}" Content="&#xE921;" Click="MinimizeWindow" ToolTip="最小化" AutomationProperties.Name="最小化"/>
+          <Button Style="{StaticResource Caption}" Content="&#xE922;" Click="ToggleWindowSize" ToolTip="最大化或还原" AutomationProperties.Name="最大化或还原"/>
+          <Button Style="{StaticResource Caption}" Content="&#xE8BB;" Click="CloseWindow" ToolTip="关闭" AutomationProperties.Name="关闭"/>
+        </StackPanel>
+        <TextBlock Text="ChatGPT" FontWeight="SemiBold" VerticalAlignment="Center"/>
+      </DockPanel>
+    </Border>
+
+    <Border Grid.Row="1" Grid.RowSpan="2" Background="#111214" BorderBrush="{StaticResource Rule}" BorderThickness="0,0,1,0">
+      <DockPanel Margin="12,23,12,15" LastChildFill="True">
+        <StackPanel DockPanel.Dock="Bottom">
+          <Button Style="{StaticResource Ghost}" Click="CreateShortcut" HorizontalContentAlignment="Left">
+            <StackPanel Orientation="Horizontal">
+              <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE71B;" Margin="0,0,9,0" VerticalAlignment="Center"/>
+              <TextBlock Text="创建启动快捷方式"/>
+            </StackPanel>
+          </Button>
+          <Button x:Name="SettingsShortcut" Style="{StaticResource Ghost}" Click="CreateSettingsShortcut" HorizontalContentAlignment="Left">
+            <StackPanel Orientation="Horizontal">
+              <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE713;" Margin="0,0,9,0" VerticalAlignment="Center"/>
+              <TextBlock Text="创建设置快捷方式"/>
+            </StackPanel>
+          </Button>
+        </StackPanel>
+        <StackPanel>
+          <Button x:Name="BackgroundTab" Click="OpenBackgrounds" HorizontalContentAlignment="Left" Margin="0,0,0,6">
+            <StackPanel Orientation="Horizontal">
+              <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xEB9F;" Margin="0,0,9,0" VerticalAlignment="Center"/>
+              <TextBlock Text="分区背景"/>
+            </StackPanel>
+          </Button>
+          <Button x:Name="AnimationTab" Click="OpenAnimation" HorizontalContentAlignment="Left">
+            <StackPanel Orientation="Horizontal">
+              <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE714;" Margin="0,0,9,0" VerticalAlignment="Center"/>
+              <TextBlock Text="启动动画"/>
+            </StackPanel>
+          </Button>
+        </StackPanel>
+      </DockPanel>
+    </Border>
+
+    <ScrollViewer Grid.Row="1" Grid.Column="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled"
+                  CanContentScroll="False" Padding="0">
+      <ScrollViewer.Resources>
+        <Style TargetType="ScrollBar">
+          <Setter Property="Width" Value="8"/>
+          <Setter Property="Template">
+            <Setter.Value>
+              <ControlTemplate TargetType="ScrollBar">
+                <Track x:Name="PART_Track" IsDirectionReversed="True">
+                  <Track.DecreaseRepeatButton><RepeatButton Command="ScrollBar.PageUpCommand" Background="Transparent" Template="{StaticResource SliderFill}"/></Track.DecreaseRepeatButton>
+                  <Track.IncreaseRepeatButton><RepeatButton Command="ScrollBar.PageDownCommand" Background="Transparent" Template="{StaticResource SliderFill}"/></Track.IncreaseRepeatButton>
+                  <Track.Thumb>
+                    <Thumb MinHeight="20">
+                      <Thumb.Template>
+                        <ControlTemplate TargetType="Thumb"><Border Background="#404349" CornerRadius="3" Margin="2,0"/></ControlTemplate>
+                      </Thumb.Template>
+                    </Thumb>
+                  </Track.Thumb>
+                </Track>
+              </ControlTemplate>
+            </Setter.Value>
+          </Setter>
+        </Style>
+      </ScrollViewer.Resources>
+      <Grid Margin="30,29,30,24">
+        <StackPanel x:Name="BackgroundPage">
+          <TextBlock Style="{StaticResource Heading}" Text="分区背景"/>
+          <TextBlock Style="{StaticResource Quiet}" Text="整窗可选图片或视频，各区也可单独选图片。" Margin="0,0,0,21"/>
+          <Grid>
+            <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="14"/><ColumnDefinition Width=".65*" MinWidth="244" MaxWidth="292"/></Grid.ColumnDefinitions>
+            <Border Style="{StaticResource Card}">
+              <StackPanel>
+                <TextBlock Style="{StaticResource SectionTitle}" Text="布局预览" Margin="0,0,0,11"/>
+                <Border x:Name="PreviewFrame" Background="#101113" CornerRadius="9" BorderThickness="1" BorderBrush="#393B3F" ClipToBounds="True">
+                  <Grid Height="231">
+                    <Grid.ColumnDefinitions><ColumnDefinition Width="23*"/><ColumnDefinition Width="57*"/><ColumnDefinition Width="20*"/></Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions><RowDefinition Height="25"/><RowDefinition Height="*"/></Grid.RowDefinitions>
+                    <Border Grid.ColumnSpan="3" Background="#15171A" BorderBrush="#35383D" BorderThickness="0,0,0,1">
+                      <TextBlock Text="ChatGPT" FontSize="10" Margin="10,0" VerticalAlignment="Center" Foreground="#C2C7CC"/>
+                    </Border>
+                    <Border x:Name="PreviewSidebar" Grid.Row="1" Background="#1F2226" BorderThickness="1" BorderBrush="#34373D">
+                      <StackPanel Margin="8,13,8,0">
+                        <Border Background="#8E969C" Opacity=".50" Height="3" CornerRadius="1.5" Margin="0,0,20,11"/>
+                        <Border Background="#8E969C" Opacity=".28" Height="3" CornerRadius="1.5" Margin="0,0,9,10"/>
+                        <Border Background="#8E969C" Opacity=".28" Height="3" CornerRadius="1.5" Margin="0,0,17,10"/>
+                        <Border Background="#8E969C" Opacity=".28" Height="3" CornerRadius="1.5" Margin="0,0,5,10"/>
+                      </StackPanel>
+                    </Border>
+                    <Border x:Name="PreviewConversation" Grid.Row="1" Grid.Column="1" Background="#181A1D" BorderThickness="1" BorderBrush="Transparent">
+                      <Grid Margin="15,13">
+                        <TextBlock Text="新对话" FontSize="15" FontWeight="SemiBold" HorizontalAlignment="Center"
+                                   VerticalAlignment="Center" Margin="0,0,0,25" Foreground="#DDE0E3"/>
+                        <Border x:Name="PreviewComposer" Background="#282B30" VerticalAlignment="Bottom" CornerRadius="5"
+                                BorderThickness="1" BorderBrush="#393B3F" Padding="8,6">
+                          <TextBlock Text="输入消息" Foreground="#C2C7CC" FontSize="10"/>
+                        </Border>
+                      </Grid>
+                    </Border>
+                    <Border x:Name="PreviewRight" Grid.Row="1" Grid.Column="2" Background="#1F2226" BorderThickness="1" BorderBrush="#34373D">
+                      <StackPanel Margin="7,14,7,0">
+                        <Border Background="#8E969C" Opacity=".45" Height="3" CornerRadius="1.5" Margin="0,0,5,10"/>
+                        <Border Background="#8E969C" Opacity=".25" Height="3" CornerRadius="1.5" Margin="0,0,9,9"/>
+                        <Border Background="#8E969C" Opacity=".25" Height="3" CornerRadius="1.5" Margin="0,0,14,8"/>
+                      </StackPanel>
+                    </Border>
+                  </Grid>
+                </Border>
+                <WrapPanel Margin="0,12,0,0">
+                  <Button x:Name="RegionWindow" Tag="Window" Content="整窗" Click="SelectRegion"/>
+                  <Button x:Name="RegionSidebar" Tag="Sidebar" Content="左侧栏" Click="SelectRegion"/>
+                  <Button x:Name="RegionConversation" Tag="Conversation" Content="对话区" Click="SelectRegion"/>
+                  <Button x:Name="RegionComposer" Tag="Composer" Content="输入区" Click="SelectRegion"/>
+                  <Button x:Name="RegionRight" Tag="RightPanel" Content="右侧面板" Click="SelectRegion"/>
+                </WrapPanel>
+              </StackPanel>
+            </Border>
+            <Border Grid.Column="2" Style="{StaticResource Card}">
+              <StackPanel>
+                <TextBlock x:Name="RegionTitle" Style="{StaticResource SectionTitle}" Text="整窗" Margin="0,0,0,14"/>
+                <StackPanel x:Name="BackgroundKind" Orientation="Horizontal" Margin="0,0,0,13">
+                  <RadioButton x:Name="PictureBackground" GroupName="WindowBackground" Content="图片" Click="SelectBackgroundKind" Margin="0,0,18,0"/>
+                  <RadioButton x:Name="VideoBackground" GroupName="WindowBackground" Content="视频" Click="SelectBackgroundKind"/>
+                </StackPanel>
+                <CheckBox x:Name="Inherit" Content="沿用整窗背景" Margin="0,0,0,14" Click="ChangeAppearance"/>
+                <TextBlock x:Name="AssetName" Style="{StaticResource Quiet}" TextTrimming="CharacterEllipsis" TextWrapping="NoWrap"
+                           ToolTip="{Binding Text, RelativeSource={RelativeSource Self}}" Margin="0,0,0,8"/>
+                <StackPanel Orientation="Horizontal">
+                  <Button x:Name="PickAsset" Content="选择图片" Click="ChooseWallpaper" Margin="0,0,7,0"/>
+                  <Button x:Name="RemoveAsset" Style="{StaticResource Ghost}" Content="清除" Click="ClearWallpaper"/>
+                </StackPanel>
+                <CheckBox x:Name="VideoSound" Content="播放视频声音" Margin="0,10,0,0" Click="ChangeVideoSound"/>
+                <TextBlock x:Name="VideoHint" Style="{StaticResource Quiet}" Margin="0,8,0,0" Visibility="Collapsed"/>
+                <Border Height="1" Background="{StaticResource Rule}" Margin="0,17,0,13"/>
+                <DockPanel>
+                  <TextBlock x:Name="StrengthLabel" DockPanel.Dock="Right" Style="{StaticResource Quiet}"/>
+                  <TextBlock Text="背景强度"/>
+                </DockPanel>
+                <Slider x:Name="Strength" Minimum="0" Maximum="100" SmallChange="1" LargeChange="10" ValueChanged="Slide"
+                        AutomationProperties.Name="背景强度" Margin="0,0,0,8"/>
+                <DockPanel>
+                  <TextBlock x:Name="VeilLabel" DockPanel.Dock="Right" Style="{StaticResource Quiet}"/>
+                  <TextBlock Text="面板遮罩"/>
+                </DockPanel>
+                <Slider x:Name="Veil" Minimum="0" Maximum="100" SmallChange="1" LargeChange="10" ValueChanged="Slide"
+                        AutomationProperties.Name="面板遮罩"/>
+              </StackPanel>
+            </Border>
+          </Grid>
+          <Border Style="{StaticResource Card}" Margin="0,14,0,0">
+            <StackPanel>
+              <CheckBox x:Name="WallpaperEnabled" Content="对官方 Codex 启用本机换肤"/>
+              <TextBlock Style="{StaticResource Quiet}" Margin="40,5,0,0"
+                         Text="首次可能需要登录。调试接口仅绑定本机，同一台电脑上的其他程序仍可能访问。"/>
+            </StackPanel>
+          </Border>
+        </StackPanel>
+
+        <StackPanel x:Name="AnimationPage" Visibility="Collapsed">
+          <TextBlock Style="{StaticResource Heading}" Text="启动动画"/>
+          <TextBlock Style="{StaticResource Quiet}" Text="选择自己的素材。没有素材时，直接打开 Codex。" Margin="0,0,0,16"/>
+          <WrapPanel Margin="0,0,0,13">
+            <Button x:Name="ModeClips" Tag="Clips" Content="按阶段搭配" Click="SelectMode"/>
+            <Button x:Name="ModeTimeline" Tag="Timeline" Content="标记一段视频" Click="SelectMode"/>
+            <Button x:Name="ModeOff" Tag="Off" Content="关闭动画" Click="SelectMode"/>
+          </WrapPanel>
+          <WrapPanel Margin="0,0,0,13">
+            <TextBlock Text="启动窗口" VerticalAlignment="Center" Margin="0,0,12,0"/>
+            <RadioButton x:Name="VideoAspectWindow" GroupName="StartupWindow" Content="按视频比例启动"
+                         VerticalAlignment="Center" Margin="0,0,16,0"/>
+            <RadioButton x:Name="MaximizedWindow" GroupName="StartupWindow" Content="全屏启动（保留任务栏）"
+                         VerticalAlignment="Center"/>
+          </WrapPanel>
+          <Grid>
+            <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="14"/><ColumnDefinition Width=".56*" MinWidth="218" MaxWidth="262"/></Grid.ColumnDefinitions>
+            <Border Style="{StaticResource Card}">
+              <Grid>
+                <StackPanel x:Name="Clips">
+                  <DockPanel Margin="0,0,0,12">
+                    <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" VerticalAlignment="Center">
+                      <Button Click="ChooseClip" Tag="Intro" Content="选择"/>
+                      <Button x:Name="RemoveIntro" Click="RemoveClip" Tag="Intro" Content="移除" Style="{StaticResource Ghost}"/>
+                    </StackPanel>
+                    <StackPanel Margin="0,0,7,0">
+                      <TextBlock Style="{StaticResource SectionTitle}" Text="开场"/>
+                      <TextBlock x:Name="IntroFile" Style="{StaticResource Quiet}" TextTrimming="CharacterEllipsis" TextWrapping="NoWrap"/>
+                    </StackPanel>
+                  </DockPanel>
+                  <Border Height="1" Background="{StaticResource Rule}" Margin="0,0,0,12"/>
+                  <DockPanel Margin="0,0,0,12">
+                    <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" VerticalAlignment="Center">
+                      <Button Click="ChooseClip" Tag="Hold" Content="选择"/>
+                      <Button x:Name="RemoveHold" Click="RemoveClip" Tag="Hold" Content="移除" Style="{StaticResource Ghost}"/>
+                    </StackPanel>
+                    <StackPanel Margin="0,0,7,0">
+                      <TextBlock Style="{StaticResource SectionTitle}" Text="等待"/>
+                      <TextBlock x:Name="HoldFile" Style="{StaticResource Quiet}" TextTrimming="CharacterEllipsis" TextWrapping="NoWrap"/>
+                    </StackPanel>
+                  </DockPanel>
+                  <Border Height="1" Background="{StaticResource Rule}" Margin="0,0,0,12"/>
+                  <DockPanel>
+                    <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" VerticalAlignment="Center">
+                      <Button Click="ChooseClip" Tag="Reveal" Content="选择"/>
+                      <Button x:Name="RemoveReveal" Click="RemoveClip" Tag="Reveal" Content="移除" Style="{StaticResource Ghost}"/>
+                    </StackPanel>
+                    <StackPanel Margin="0,0,7,0">
+                      <TextBlock Style="{StaticResource SectionTitle}" Text="揭幕"/>
+                      <TextBlock x:Name="RevealFile" Style="{StaticResource Quiet}" TextTrimming="CharacterEllipsis" TextWrapping="NoWrap"/>
+                    </StackPanel>
+                  </DockPanel>
+                </StackPanel>
+                <StackPanel x:Name="Timeline" Visibility="Collapsed">
+                  <DockPanel Margin="0,0,0,15">
+                    <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" VerticalAlignment="Center">
+                      <Button Click="ChooseClip" Tag="Timeline" Content="选择"/>
+                      <Button x:Name="RemoveTimeline" Click="RemoveClip" Tag="Timeline" Content="移除" Style="{StaticResource Ghost}"/>
+                    </StackPanel>
+                    <StackPanel Margin="0,0,7,0">
+                      <TextBlock Style="{StaticResource SectionTitle}" Text="完整视频"/>
+                      <TextBlock x:Name="TimelineFile" Style="{StaticResource Quiet}" TextTrimming="CharacterEllipsis" TextWrapping="NoWrap"/>
+                    </StackPanel>
+                  </DockPanel>
+                  <DockPanel>
+                    <TextBlock x:Name="WaitLabel" DockPanel.Dock="Right" Style="{StaticResource Quiet}"/>
+                    <TextBlock Text="等待段起点"/>
+                  </DockPanel>
+                  <Slider x:Name="WaitMarker" Minimum="0" Maximum="60" SmallChange="0.1" LargeChange="1"
+                          ValueChanged="ReadMarkers" AutomationProperties.Name="等待段起点" Margin="0,0,0,9"/>
+                  <DockPanel>
+                    <TextBlock x:Name="RevealLabel" DockPanel.Dock="Right" Style="{StaticResource Quiet}"/>
+                    <TextBlock Text="揭幕段起点"/>
+                  </DockPanel>
+                  <Slider x:Name="RevealMarker" Minimum="0" Maximum="60" SmallChange="0.1" LargeChange="1"
+                          ValueChanged="ReadMarkers" AutomationProperties.Name="揭幕段起点"/>
+                </StackPanel>
+                <TextBlock x:Name="AnimationOff" Text="下次冷启动时直接打开 Codex。" Style="{StaticResource Quiet}" Visibility="Collapsed"/>
+              </Grid>
+            </Border>
+            <Border Grid.Column="2" Style="{StaticResource Card}">
+              <StackPanel>
+                <TextBlock Style="{StaticResource SectionTitle}" Text="播放预览"/>
+                <TextBlock Style="{StaticResource Quiet}" Margin="0,7,0,13"
+                           Text="开场完整播放。Codex 就绪后跳过等待或结束循环，再接揭幕。"/>
+                <Button x:Name="PreviewButton" Content="预览自选动画" Style="{StaticResource Action}" Click="Preview"/>
+                <TextBlock Style="{StaticResource Quiet}" Margin="0,12,0,0" Text="视频用 MP4，等待也可用 PNG 或 JPEG。视频静音播放。"/>
+              </StackPanel>
+            </Border>
+          </Grid>
+        </StackPanel>
+      </Grid>
+    </ScrollViewer>
+
+    <Border Grid.Column="1" Grid.Row="2" BorderBrush="{StaticResource Rule}" BorderThickness="0,1,0,0" Background="#17181A">
+      <DockPanel Margin="27,0,26,0">
+        <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" VerticalAlignment="Center">
+          <Button Content="保存" Click="SaveSettings" Margin="0,0,8,0"/>
+          <Button Content="保存并启动" Style="{StaticResource Action}" Click="SaveAndLaunch"/>
+        </StackPanel>
+        <TextBlock x:Name="Status" Style="{StaticResource Quiet}" VerticalAlignment="Center" Margin="0,0,14,0"
+                   AutomationProperties.LiveSetting="Polite"/>
+      </DockPanel>
+    </Border>
+  </Grid>
+</Window>
